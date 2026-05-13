@@ -1,0 +1,2 @@
+INSERT INTO juegos (titulo, desarrollador, editor, fecha_publicacion, genero, descripcion, precio) 
+VALUES ('Elden Ring', 'FromSoftware', 'Bandai Namco', '2022-02-25', 'RPG', 'Un gran juego de mundo abierto', 59990);
