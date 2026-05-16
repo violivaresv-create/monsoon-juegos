@@ -2,7 +2,7 @@ package cl.monsoon.juegos.model;
 
 import java.sql.Date;
 
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -27,7 +27,7 @@ public class Juegos {
     private String genero;
 
     private String descripcion;
-
-    private int precio;
+    @Column(columnDefinition = "DECIMAL(10,2)")
+    private Double precio;
     
 }
