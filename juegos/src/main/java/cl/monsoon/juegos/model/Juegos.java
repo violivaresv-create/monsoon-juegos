@@ -2,8 +2,9 @@ package cl.monsoon.juegos.model;
 
 import java.sql.Date;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +17,9 @@ import lombok.NoArgsConstructor;
 public class Juegos {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String titulo;
 
     private String desarrollador;
@@ -27,7 +31,7 @@ public class Juegos {
     private String genero;
 
     private String descripcion;
-    @Column(columnDefinition = "DECIMAL(10,2)")
+
     private Double precio;
     
 }

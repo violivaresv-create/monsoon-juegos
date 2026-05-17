@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
-@RequestMapping("api/v2/Juegos")
+@RequestMapping("api/v0/Juegos")
 public class JuegosController {
     
     @Autowired
