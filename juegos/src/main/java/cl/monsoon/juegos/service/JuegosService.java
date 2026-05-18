@@ -1,7 +1,7 @@
 package cl.monsoon.juegos.service;
 
 import java.util.List;
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,11 @@ public class JuegosService {
         return juegosRepository.findAll();
     }
 
-    public List<Juegos> findByTituloContainingIgnoreCase(String titulo){
+    public List<Juegos> buscarJuego(String titulo){
         return juegosRepository.findByTituloContainingIgnoreCase(titulo);
+    }
+
+    public Optional<Juegos> obtenerJuegoPorId(Long id) {
+        return juegosRepository.findById(id);
     }
 }

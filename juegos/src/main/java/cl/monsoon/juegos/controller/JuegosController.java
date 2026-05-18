@@ -13,13 +13,14 @@ import cl.monsoon.juegos.service.JuegosService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
 
 
 @RestController
-@RequestMapping("api/v0/Juegos")
+@RequestMapping("api/v0/juegos")
 public class JuegosController {
     
     @Autowired
@@ -37,10 +38,11 @@ public class JuegosController {
 
     @GetMapping("/juego")
     public ResponseEntity<List<Juegos>> buscarJuego(@RequestParam String titulo) {
-        return ResponseEntity.ok(juegosService.findByTituloContainingIgnoreCase(titulo));
+        return ResponseEntity.ok(juegosService.buscarJuego(titulo));
     }
     
-
-    
-
+    @GetMapping("/{id}")
+    public ResponseEntity<Juegos> obtenerJuegoPorId(@PathVariable Long id) {
+        return juegosService.obtenerJuegoPorId(id).map(juego -> ResponseEntity.ok(juego)).orElse(ResponseEntity.notFound().build());
+    }
 }

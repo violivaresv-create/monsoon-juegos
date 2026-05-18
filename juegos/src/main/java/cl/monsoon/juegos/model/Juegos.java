@@ -1,5 +1,6 @@
 package cl.monsoon.juegos.model;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 
 import jakarta.persistence.Entity;
@@ -32,6 +33,6 @@ public class Juegos {
 
     private String descripcion;
 
-    private Double precio;
+    private BigDecimal precio;
     
 }
