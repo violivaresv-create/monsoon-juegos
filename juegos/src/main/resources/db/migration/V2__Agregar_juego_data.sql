@@ -1,2 +1,21 @@
-INSERT INTO juegos (titulo, desarrollador, editor, fecha_publicacion, genero, descripcion, precio) 
-VALUES ('Elden Ring', 'FromSoftware', 'Bandai Namco', '2022-02-25', 'RPG', 'Un gran juego de mundo abierto', 59990);
+INSERT INTO juegos (titulo, desarrollador, editor, fecha_publicacion, genero, descripcion, precio) VALUES 
+('Elden Ring', 'FromSoftware', 'Bandai Namco', '2022-02-25', 'RPG', 'Un gran juego de mundo abierto', 59990),
+('The Witcher 3', 'CD Projekt Red', 'CD Projekt', '2015-05-19', 'RPG', 'Caza de monstruos en un mundo abierto masivo.', 29990),
+('Hollow Knight', 'Team Cherry', 'Team Cherry', '2017-02-24', 'Metroidvania', 'Acción y aventura clásica en 2D en un mundo en ruinas.', 10500),
+('Red Dead Redemption 2', 'Rockstar Games', 'Rockstar Games', '2018-10-26', 'Acción/Aventura', 'Una historia épica sobre la vida en el corazón de América.', 49990),
+('Celeste', 'Extremely OK Games', 'Maddy Makes Games', '2018-01-25', 'Plataformas', 'Ayuda a Madeline a sobrevivir a sus demonios internos.', 9500),
+('Cyberpunk 2077', 'CD Projekt Red', 'CD Projekt', '2020-12-10', 'RPG', 'Un RPG de acción y aventura de mundo abierto ambientado en Night City.', 39990),
+('Hadés', 'Supergiant Games', 'Supergiant Games', '2020-09-17', 'Roguelike', 'Desafía al dios de los muertos en este dungeon crawler.', 14500),
+('Minecraft', 'Mojang Studios', 'Xbox Game Studios', '2011-11-18', 'Sandbox', 'Explora mundos infinitos y construye cosas increíbles.', 25000),
+('Stardew Valley', 'ConcernedApe', 'ConcernedApe', '2016-02-26', 'Simulación', 'Heredaste la vieja parcela agrícola de tu abuelo en Stardew Valley.', 8500),
+('DOOM Eternal', 'id Software', 'Bethesda Softworks', '2020-03-20', 'FPS', 'Las armadas del infierno han invadido la Tierra. Conviértete en el Slayer.', 35000),
+('Resident Evil 4', 'Capcom', 'Capcom', '2023-03-24', 'Survival Horror', 'Agente Leon S. Kennedy rescata a la hija del presidente.', 45000),
+('Grand Theft Auto V', 'Rockstar North', 'Rockstar Games', '2013-09-17', 'Acción/Aventura', 'Tres criminales muy diferentes lo arriesgan todo en golpes audaces.', 22000),
+('It Takes Two', 'Hazelight Studios', 'Electronic Arts', '2021-03-26', 'Cooperativo', 'Embárcate en el viaje más loco de tu vida creado para el juego cooperativo.', 32000),
+('Sekiro: Shadows Die Twice', 'FromSoftware', 'Activision', '2019-03-22', 'Acción/Aventura', 'Explora el Japón de la era Sengoku de finales del siglo XVI.', 42000),
+('Outer Wilds', 'Mobius Digital', 'Annapurna Interactive', '2019-05-28', 'Exploración', 'Un misterio de bucle temporal en un sistema solar atrapado.', 18500),
+('Terraria', 'Re-Logic', 'Re-Logic', '2011-05-16', 'Sandbox', '¡Cava, lucha, explora, construye! Nada es imposible en este juego de aventura.', 7500),
+('Monster Hunter: World', 'Capcom', 'Capcom', '2018-01-26', 'Acción RPG', 'Caza monstruos gigantescos en un ecosistema vivo y respirable.', 24000),
+('Disco Elysium', 'ZA/UM', 'ZA/UM', '2019-10-15', 'RPG', 'Eres un detective con un sistema de habilidades único a tu disposición.', 16000),
+('Slay the Spire', 'Mega Crit Games', 'Humble Bundle', '2019-01-23', 'Roguelike/Cartas', 'Fusionamos juegos de cartas y roguelikes para hacer el mejor juego de cartas.', 11500),
+('Portal 2', 'Valve', 'Valve', '2011-04-18', 'Puzles', 'La innovadora mecánica de juego que desafía a los jugadores a pensar.', 8500);
