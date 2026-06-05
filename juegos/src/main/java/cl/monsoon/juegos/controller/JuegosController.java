@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cl.monsoon.juegos.model.Juegos;
 import cl.monsoon.juegos.service.JuegosService;
+import io.swagger.v3.oas.annotations.Operation;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,12 +36,13 @@ public class JuegosController {
     public ResponseEntity<List<Juegos>> listaJuegos() {
         return ResponseEntity.ok(juegosService.listaJuegos());
     }
-
+    @Operation(summary = "Buscar juego" , description = "Busca un juego por su nombre")
     @GetMapping("/juego")
     public ResponseEntity<List<Juegos>> buscarJuego(@RequestParam String titulo) {
         return ResponseEntity.ok(juegosService.buscarJuego(titulo));
     }
     
+    @Operation(summary = "Buscar juego por id" , description = "Busca un juego en base a su id")
     @GetMapping("/{id}")
     public ResponseEntity<Juegos> obtenerJuegoPorId(@PathVariable Long id) {
         return juegosService.obtenerJuegoPorId(id).map(juego -> ResponseEntity.ok(juego)).orElse(ResponseEntity.notFound().build());
