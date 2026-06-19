@@ -4,14 +4,19 @@ import io.swagger.v3.oas.models.OpenAPI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+import cl.monsoon.juegos.config.WebMvcLinkBuilder;
 import cl.monsoon.juegos.model.Juegos;
 import cl.monsoon.juegos.service.JuegosService;
 import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.hateoas.Link;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,14 +34,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RequestMapping("api/v0/juegos")
 public class JuegosController {
     
-    private final OpenAPI apiInfo;
     @Autowired
     private JuegosService juegosService;
 
-    JuegosController(OpenAPI apiInfo) {
-        this.apiInfo = apiInfo;
-    }
-    
+    @Autowired
+    private WebMvcLinkBuilder assembler;
+
+
     @Operation(summary = "Agregar juego" , description = "Agrega un nuevo juego a la base de datos")
     @PostMapping
     public ResponseEntity<Juegos> agregarJuego(@RequestBody Juegos juego) {
@@ -44,6 +48,7 @@ public class JuegosController {
        if(resultado) return ResponseEntity.status(HttpStatus.CREATED).body(juego);
         else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
+    
     @Operation(summary = "Listar juegos" , description = "Lista todos los juegos disponibles")
     @GetMapping
     public ResponseEntity<List<Juegos>> listaJuegos() {
@@ -61,8 +66,9 @@ public class JuegosController {
     
     @Operation(summary = "Buscar juego por id" , description = "Busca un juego en base a su id")
     @GetMapping("/{id}")
-    public ResponseEntity<Juegos> obtenerJuegoPorId(@PathVariable Long id) {
-        return juegosService.obtenerJuegoPorId(id).map(juego -> ResponseEntity.status(HttpStatus.OK).body(juego)).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
+    public EntityModel<ResponseEntity<Juegos>> obtenerJuegoPorId(@PathVariable Long id) {
+        return juegosService.obtenerJuegoPorId(id).map(juego -> {EntityModel<Juegos> modelo = EntityModel.of(juego);¿modelo.add(linkTo(methodOn(this.getClass()).obtenerJuegoPorId(id)).withSelfRel());
+                return ResponseEntity.ok(modelo);}).orElse(ResponseEntity.notFound().build());
     }
     @Operation(summary = "Eliminar juego por id" , description = "Elimina un juego en base a su id")
     @DeleteMapping("/{id}")
@@ -79,5 +85,11 @@ public class JuegosController {
             juegosService.actualizarJuego(juego);
             return ResponseEntity.status(HttpStatus.OK).body(juego);
         }).orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null));
+    }
+
+    private EntityModel<Juegos> addLinks(Juegos juegos) {
+        Link selfLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(JuegosController.class).obtenerJuegoPorId(juegos.getId())).withSelfRel();
+        Link allLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(JuegosController.class).listaJuegos()).withRel("juegos");
+        return EntityModel.of(juegos, selfLink, allLink);
     }
 }
