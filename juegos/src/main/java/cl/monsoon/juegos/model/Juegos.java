@@ -35,16 +35,47 @@ public class Juegos {
     )
     private String titulo;
 
+    @Schema(
+        description = "Desarrollador del juego",
+        example = "Epic Games",
+        requiredMode = Schema.RequiredMode.REQUIRED
+    )
     private String desarrollador;
 
+    @Schema(
+        description = "Editor del juego",
+        example = "Epic Games",
+        requiredMode = Schema.RequiredMode.REQUIRED
+    )
     private String editor;
 
+    @Schema(
+        description = "Fecha de publicación del juego",
+        example = "2020-01-01",
+        requiredMode = Schema.RequiredMode.REQUIRED
+    )
     private Date fechaPublicacion;
 
+    @Schema(
+        description = "Género del juego",
+        example = "Battle Royale",
+        requiredMode = Schema.RequiredMode.REQUIRED
+    )
     private String genero;
 
+    @Schema(
+        description = "Descripción del juego",
+        example = "Juego de lucha en línea",
+        requiredMode = Schema.RequiredMode.REQUIRED
+    )
     private String descripcion;
 
+
+    @Schema(
+        description = "Precio del juego",
+        example = "0.00",
+        requiredMode = Schema.RequiredMode.REQUIRED
+    )
     private BigDecimal precio;
     
 }

@@ -15,8 +15,9 @@ public class JuegosService {
     @Autowired
     private JuegosRepository juegosRepository;
 
-    public void agregarJuego(Juegos juego){
+    public boolean agregarJuego(Juegos juego){
         juegosRepository.save(juego);
+        return true;
     }
 
     public List<Juegos> listaJuegos(){
@@ -29,5 +30,12 @@ public class JuegosService {
 
     public Optional<Juegos> obtenerJuegoPorId(Long id) {
         return juegosRepository.findById(id);
+    }
+    public void eliminarJuego(Long id) {
+        juegosRepository.deleteById(id);
+    }
+
+    public void actualizarJuego(Juegos juego) {
+        juegosRepository.save(juego);
     }
 }
