@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -83,9 +84,9 @@ public class JuegosServiceTest {
     public void testObtenerJuegoPorId() {
         when(juegosRepository.findById(1L)).thenReturn(java.util.Optional.of(juego));
 
-        var result = juegosService.obtenerJuegoPorId(1L);
+        Optional<Juegos> result = juegosService.obtenerJuegoPorId(1L);
         
-        assertTrue(result.isPresent());
+        assertNotNull(result);
         assertEquals(juego, result.get());
         verify(juegosRepository, times(1)).findById(1L);
     }
@@ -94,7 +95,7 @@ public class JuegosServiceTest {
     public void testObtenerJuegoPorIdNoEncontrado() {
         when(juegosRepository.findById(1L)).thenReturn(java.util.Optional.empty());
 
-        var result = juegosService.obtenerJuegoPorId(1L);
+        Optional<Juegos> result = juegosService.obtenerJuegoPorId(1L);
         
         assertFalse(result.isPresent());
         verify(juegosRepository, times(1)).findById(1L);
