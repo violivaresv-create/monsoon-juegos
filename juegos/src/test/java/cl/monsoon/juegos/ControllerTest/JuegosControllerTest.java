@@ -16,7 +16,6 @@ import cl.monsoon.juegos.service.JuegosService;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -48,30 +47,116 @@ public class JuegosControllerTest {
     }
 
     @Test
-    public void testListaJuegos() {
-        List<Juegos> juegosList = Arrays.asList(juego);
-        when(juegosService.listaJuegos()).thenReturn(juegosList);
+    public void testAgregarJuego() {
+        when(juegosService.agregarJuego(any(Juegos.class))).thenReturn(juego);
 
-        ResponseEntity<List<Juegos>> result = juegosController.listaJuegos();
-
+        ResponseEntity<EntityModel<Juegos>> result = juegosController.agregarJuego(juego);
+        
         assertNotNull(result);
-        assertEquals(1, result.getBody().size());
-        assertEquals("Juego test", result.getBody().get(0).getTitulo());
-        verify(juegosService, times(1)).listaJuegos();
+        assertEquals(HttpStatus.CREATED, result.getStatusCode());
+        verify(juegosService, times(1)).agregarJuego(juego);
     }
 
 
     @Test
-    public boolean testAgregarJuego() {
-        when(juegosService.agregarJuego(any(Juegos.class))).thenReturn(true);
+    public void testAgregarJuegoFallido() {
+        when(juegosService.agregarJuego(any(Juegos.class))).thenReturn(null);
 
-        ResponseEntity<Juegos> result = juegosController.agregarJuego(juego);
+        ResponseEntity<EntityModel<Juegos>> result = juegosController.agregarJuego(juego);
+        
+        assertNotNull(result);
+        assertEquals(HttpStatus.BAD_REQUEST, result.getStatusCode());
+        verify(juegosService, times(1)).agregarJuego(juego);
+    }
+
+    @Test
+    public void testMostrarTodosLosJuegosDisponibles() {
+        when(juegosService.listaJuegos()).thenReturn(List.of(juego));
+
+        ResponseEntity<List<EntityModel<Juegos>>> result = juegosController.listaJuegos();
+        
+        assertNotNull(result);
+        assertEquals(HttpStatus.OK, result.getStatusCode());
+        assertFalse(result.getBody().isEmpty());
+        verify(juegosService, times(1)).listaJuegos();
+    }
+
+    @Test
+    public void testBuscarJuegoPorTitulo() {
+        when(juegosService.buscarJuego("Fortnite")).thenReturn(List.of(juego));
+
+        ResponseEntity<List<EntityModel<Juegos>>> result = juegosController.buscarJuego("Fortnite");
+        
+        assertNotNull(result);
+        assertEquals(HttpStatus.OK, result.getStatusCode());
+        assertFalse(result.getBody().isEmpty());
+        verify(juegosService, times(1)).buscarJuego("Fortnite");
+    }
+
+    @Test
+    public void testBuscarJuegoPorTituloNoEncontrado() {
+        when(juegosService.buscarJuego("JuegoInexistente")).thenReturn(List.of());
+
+        ResponseEntity<List<EntityModel<Juegos>>> result = juegosController.buscarJuego("JuegoInexistente");
+        
+        assertNotNull(result);
+        assertEquals(HttpStatus.NOT_FOUND, result.getStatusCode());
+        verify(juegosService, times(1)).buscarJuego("JuegoInexistente");
+    }
+
+    @Test
+    public void testObtenerJuegoPorId() {
+        when(juegosService.obtenerJuegoPorId(1L)).thenReturn(java.util.Optional.of(juego));
+
+        ResponseEntity<EntityModel<Juegos>> result = juegosController.obtenerJuegoPorId(1L);
+        
+        assertNotNull(result);
+        assertEquals(HttpStatus.OK, result.getStatusCode());
+        verify(juegosService, times(1)).obtenerJuegoPorId(1L);
+    }
+
+    @Test
+    public void testObtenerJuegoPorIdNoEncontrado() {
+        when(juegosService.obtenerJuegoPorId(2L)).thenReturn(java.util.Optional.empty());
+
+        ResponseEntity<EntityModel<Juegos>> result = juegosController.obtenerJuegoPorId(2L);
+        
+        assertNotNull(result);
+        assertEquals(HttpStatus.NOT_FOUND, result.getStatusCode());
+        verify(juegosService, times(1)).obtenerJuegoPorId(2L);
+    }
+
+    @Test
+    public void testEliminarJuego() {
+        when(juegosService.eliminarJuego(1L)).thenReturn(true);
+
+        ResponseEntity<EntityModel<Juegos>> result = juegosController.eliminarJuego(1L);
+        
+        assertNotNull(result);
+        assertEquals(HttpStatus.NO_CONTENT, result.getStatusCode());
+        verify(juegosService, times(1)).eliminarJuego(1L);
+    }
+
+    @Test
+    public void testEliminarJuegoFallido() {
+        when(juegosService.eliminarJuego(2L)).thenReturn(false);
+
+        ResponseEntity<EntityModel<Juegos>> result = juegosController.eliminarJuego(2L);
+        
+        assertNotNull(result);
+        assertEquals(HttpStatus.BAD_REQUEST, result.getStatusCode());
+        verify(juegosService, times(1)).eliminarJuego(2L);
+    }
+
+    @Test
+    public void testActualizarJuego() {
+        doNothing().when(juegosService).actualizarJuego(any(Juegos.class));
+
+        ResponseEntity<EntityModel<Juegos>> result = juegosController.actualizarJuego(1L, juego);
 
         assertNotNull(result);
-        assertEquals(HttpStatus.CREATED, result.getStatusCode());
-        assertEquals(juego, result.getBody());
-        verify(juegosService, times(1)).agregarJuego(any(Juegos.class));
-        return true;
+        assertEquals(HttpStatus.OK, result.getStatusCode());
+        verify(juegosService, times(1)).actualizarJuego(any(Juegos.class));
     }
 
 }

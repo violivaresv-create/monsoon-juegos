@@ -15,7 +15,7 @@ public class OpenApiConfig {
                         .info(new Info()
                                 .title("Monsoon: Microservicio de juegos")
                                 .version("0.0.2")
-                                .description("microservicio de compra de juegos")
+                                .description("microservicio de compra de juegos, visualizacion de catalogo y busqueda de juegos")
                     );
     }
 
