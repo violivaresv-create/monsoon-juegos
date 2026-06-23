@@ -36,9 +36,6 @@ public class JuegosController {
     @Autowired
     private JuegosService juegosService;
 
-    @Autowired
-    private WebMvcLinkBuilder assembler;
-
 
     @Operation(summary = "Agregar juego" , description = "Agrega un nuevo juego a la base de datos")
     @PostMapping

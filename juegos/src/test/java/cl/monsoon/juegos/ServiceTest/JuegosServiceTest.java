@@ -97,7 +97,7 @@ public class JuegosServiceTest {
 
         Optional<Juegos> result = juegosService.obtenerJuegoPorId(1L);
         
-        assertFalse(result.isPresent());
+        assertNull(result);
         verify(juegosRepository, times(1)).findById(1L);
     }
 
